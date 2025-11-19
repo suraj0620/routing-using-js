@@ -1,31 +1,49 @@
+import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import Home from './home.jsx'
-import About from './about.jsx'
-import Contact from './contact.jsx'
+import Home from './pages/Home.jsx'
+import About from './pages/About.jsx'
+import Contact from './pages/Contact.jsx'
 
-const root = createRoot(document.getElementById('root'))
+function App() {
+  const path = window.location.pathname
 
-function renderPage() {
-  const pathroot = window.location.pathname
+  let currentComponent
 
-  console.log('current path:', pathroot)
-
-  let component
-
-  if (pathroot === '/' || pathroot === '') {
-    component = <Home />
-  } else if (pathroot === '/about') {
-    component = <About />
-  } else if (pathroot === '/contact') {
-    component = <Contact />
-  } else {
-    component = <h1>404 Not Found</h1>
+  if (path === '/' || path === '' || path === '/home') {
+    currentComponent = <Home />
+  }
+  else if (path === '/about') {
+    currentComponent = <About />
+  }
+  else if (path === '/contact') {
+    currentComponent = <Contact />
+  }
+  else {
+    currentComponent = <h1>404 - Page Not Found</h1>
   }
 
-  root.render(component)
+  function navigate(newPath) {
+    window.history.pushState(null, '', newPath)
+    window.location.reload()
+  }
+
+  return (
+    <div className="app-container">
+      <nav className="navbar">
+        <button onClick={() => navigate('/home')}>Home</button>
+        <button onClick={() => navigate('/about')}>About</button>
+        <button onClick={() => navigate('/contact')}>Contact</button>
+      </nav>
+      <main>
+        {currentComponent}
+      </main>
+    </div>
+  )
 }
 
-renderPage()
-
-window.addEventListener('popstate', renderPage)
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)
