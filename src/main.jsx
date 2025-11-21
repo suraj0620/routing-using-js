@@ -1,49 +1,20 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import Home from './pages/Home.jsx'
-import About from './pages/About.jsx'
-import Contact from './pages/Contact.jsx'
+import React from "react";
+import { createRoot } from "react-dom/client";
 
-function App() {
-  const path = window.location.pathname
+import Home from "./Home.jsx";
+import About from "./About.jsx";
+import Contact from "./Contact.jsx";
+import "./index.css";
 
-  let currentComponent
+const root = createRoot(document.getElementById("root"));
+const path = window.location.pathname;
 
-  if (path === '/' || path === '' || path === '/home') {
-    currentComponent = <Home />
-  }
-  else if (path === '/about') {
-    currentComponent = <About />
-  }
-  else if (path === '/contact') {
-    currentComponent = <Contact />
-  }
-  else {
-    currentComponent = <h1>404 - Page Not Found</h1>
-  }
-
-  function navigate(newPath) {
-    window.history.pushState(null, '', newPath)
-    window.location.reload()
-  }
-
-  return (
-    <div className="app-container">
-      <nav className="navbar">
-        <button onClick={() => navigate('/home')}>Home</button>
-        <button onClick={() => navigate('/about')}>About</button>
-        <button onClick={() => navigate('/contact')}>Contact</button>
-      </nav>
-      <main>
-        {currentComponent}
-      </main>
-    </div>
-  )
+if (path === "/") {
+  root.render(<Home />);
+} else if (path === "/about") {
+  root.render(<About />);
+} else if (path === "/contact") {
+  root.render(<Contact />);
+} else {
+  root.render(<h1>404 Page Not Found</h1>);
 }
-
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)

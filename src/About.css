@@ -1,0 +1,16 @@
+.about {
+  text-align: center;
+  padding: 40px;
+  background: #ffe7cc;
+}
+
+.about h1 {
+  color: #a85d00;
+}
+
+nav a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #a85d00;
+  font-weight: bold;
+}
